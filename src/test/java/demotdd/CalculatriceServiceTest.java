@@ -4,22 +4,29 @@ package demotdd;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 public class CalculatriceServiceTest {
 	
 	private CalculatriceService calculatriceService;
 	
 	@BeforeEach 
-	public void SetUp() {
+	@Timeout(5)
+	public void SetUp() throws InterruptedException {
+		TimeUnit.SECONDS.sleep(3);
 		calculatriceService = new CalculatriceService();
 		System.out.println("On initialise les ressources");
 	}
 	
 	@Test
-	public void TestAddition() {
+	@Timeout(value = 500, unit = TimeUnit.MILLISECONDS)
+	public void TestAddition()  {
+		
 		System.out.println("Test Addition");
 		int resultat = calculatriceService.Addition(3,4);
 		int expected = 7;
@@ -42,7 +49,9 @@ public class CalculatriceServiceTest {
 	}
 	
 	@AfterEach 
-	public void TearDown() {
+	@Timeout(5)
+	public void TearDown() throws InterruptedException {
+		TimeUnit.SECONDS.sleep(3);
 		calculatriceService = null;
 		System.out.println("On libère les ressources");
 	}
